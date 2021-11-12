@@ -3,6 +3,7 @@ package kata5P2.main;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,11 +11,11 @@ import kata5P2.model.Histogram;
 import kata5P2.model.Mail;
 import kata5P2.view.HistogramDisplay;
 import kata5P2.view.MailHistogramBuilder;
-import kata5P2.view.MailListReader;
+import kata5P2.view.MailListReaderBD;
 
 public class Kata5P2 {
     private final String fileName = "email.txt";
-    private List<Mail> mailList;
+    private ArrayList<Mail> mailList = new ArrayList<>();
     private Histogram<String> histogram;
     private HistogramDisplay histoDisplay;
     
@@ -33,7 +34,11 @@ public class Kata5P2 {
     }
     
     public void input() throws IOException{
-        mailList = MailListReader.read(fileName);
+        List<Mail> list = MailListReaderBD.read();
+        for (Mail mail : list) {
+            if(mail!=null)
+            mailList.add(mail);
+        }
     }
     
     public void process(){
